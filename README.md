@@ -1,3 +1,6 @@
+![Código SQL](Tabelas_Produtos.png)
+
+
 ### Esquema da Tabela
 
 - `id_produto`: Chave primária para identificação única do produto.
