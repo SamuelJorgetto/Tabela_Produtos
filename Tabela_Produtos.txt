@@ -1,0 +1,51 @@
+CREATE TABLE TB_PRODUTOS (
+    id_produto INT PRIMARY KEY,
+    nome VARCHAR(50),
+    preco DECIMAL(10, 2),
+    estoque INT,
+    perecivel VARCHAR(3),
+    marca VARCHAR(50),
+    nacionalidade VARCHAR(50)
+); -- CRIAÇÃO DAS TABELAS DOS PRODUTOS
+
+INSERT INTO TB_PRODUTOS (id_produto, nome, preco, estoque, perecivel, marca, nacionalidade)
+VALUES (1, 'Nescau', 8.00, 30, 'sim', 'Nestlé', 'Brasileiro');
+INSERT INTO TB_PRODUTOS (id_produto, nome, preco, estoque, perecivel, marca, nacionalidade)
+VALUES (2, 'Leite', 5.00, 50, 'sim', 'Ninho', 'Brasileiro');
+INSERT INTO TB_PRODUTOS (id_produto, nome, preco, estoque, perecivel, marca, nacionalidade)
+VALUES (3, 'Lapis', 3.00, 25, 'não', 'Bic', 'Francesa');
+INSERT INTO TB_PRODUTOS (id_produto, nome, preco, estoque, perecivel, marca, nacionalidade)
+VALUES (4, 'Lapis', 3.00, 27, 'não', 'Faber-Castell', 'Alemã');
+INSERT INTO TB_PRODUTOS (id_produto, nome, preco, estoque, perecivel, marca, nacionalidade)
+VALUES (5, 'Arroz', 9.00, 30, 'sim', 'São João', 'Brasileiro');
+-- INSERÇÃO DOS VALORES AS TABELAS DE PRODUTOS
+
+SELECT COUNT(*) AS total_produtos FROM TB_PRODUTOS; -- Quantidade de produtos cadastrados
+
+SELECT AVG(preco) AS preco_medio FROM TB_PRODUTOS; -- Preço médio dos produtos:
+
+SELECT perecivel, 
+AVG(preco) AS preco_medio
+FROM TB_PRODUTOS
+GROUP BY perecivel; -- Média dos preços dos produtos em 2 grupos (perecíveis e não perecíveis) 
+
+SELECT nome, AVG(preco) AS preco_medio
+FROM TB_PRODUTOS
+GROUP BY nome; -- Média dos preços dos produtos agrupados pelo nome do produto
+
+SELECT AVG(preco) AS preco_medio, 
+SUM(estoque) AS total_estoque
+FROM TB_PRODUTOS; -- Média dos preços e total em estoque dos produtos:
+
+SELECT nome, marca, 
+estoque
+FROM TB_PRODUTOS
+WHERE preco = (SELECT MAX(preco) FROM TB_PRODUTOS); -- Nome, marca e quantidade em estoque do produto mais caro
+
+SELECT *
+FROM TB_PRODUTOS
+WHERE preco > (SELECT AVG(preco) FROM TB_PRODUTOS); -- Produtos com preço acima da média
+
+SELECT nacionalidade, COUNT(*) AS quantidade
+FROM TB_PRODUTOS
+GROUP BY nacionalidade; -- Quantidade de produtos de cada nacionalidade
